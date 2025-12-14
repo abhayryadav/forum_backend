@@ -1,18 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const session = require('express-session');
 require('dotenv').config();
 
 const app = express();
-app.use(cors({ origin: 'http://13.222.160.28:3000', credentials: true }));
+
+app.use(cors());
 app.use(express.json());
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // true for HTTPS
-}));
+
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
