@@ -14,7 +14,7 @@ app.use(session({
   cookie: { secure: false } // true for HTTPS
 }));
 
-mongoose.connect("mongodb://localhost:27017/taskdb")
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
