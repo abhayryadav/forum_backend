@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Signup route with role selection
 router.post('/signup', async (req, res) => {
-  const { password, email, role } = req.body;
+  const { password, email, role , SecretKey} = req.body;
   
   // Validation
   if (!password || !email || !role) {
@@ -24,6 +24,14 @@ router.post('/signup', async (req, res) => {
   // Validate role
   const validRoles = ['user','admin']; // Add more roles if needed
   const userRole = role && validRoles.includes(role) ? role : 'user';
+  console.log(userRole)
+  console.log(SecretKey)
+  if(userRole ===  'admin' && SecretKey != '2134'){
+    return res.status(409).json({ 
+        error: 'invalid secret key' 
+      });
+  }
+
   console.log(req.body)
   try {
     // Check if user already exists
